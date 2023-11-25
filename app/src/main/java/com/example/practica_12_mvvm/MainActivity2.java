@@ -1,18 +1,17 @@
 package com.example.practica_12_mvvm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private EditText txtNumero1;
     private EditText txtNumero2;
     private TextView txtResultado;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +24,15 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void sumar(View view) {
-        int numero1 = Integer.parseInt(txtNumero1.getText().toString());
-        int numero2 = Integer.parseInt(txtNumero2.getText().toString());
+        try {
+            int numero1 = Integer.parseInt(txtNumero1.getText().toString());
+            int numero2 = Integer.parseInt(txtNumero2.getText().toString());
 
-        int resultado = numero1 + numero2;
+            int resultado = numero1 + numero2;
 
-        txtResultado.setText(String.valueOf(resultado));
+            txtResultado.setText("Resultado: " + resultado);
+        } catch (NumberFormatException e) {
+            txtResultado.setText("Error: Ingresa números válidos");
+        }
     }
 }
