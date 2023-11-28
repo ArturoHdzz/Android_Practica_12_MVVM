@@ -6,23 +6,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.practica_12_mvvm.Interactos.SumaInteractor;
 
 public class SumaViewModel extends ViewModel {
-    private MutableLiveData<Integer> resultadoLiveData = new MutableLiveData<>();
-    private SumaInteractor sumaInteractor = new SumaInteractor();
-
-    public SumaViewModel() {
-        resultadoLiveData.setValue(0);
+    private MutableLiveData<String> resultado = new MutableLiveData<>();
+    public LiveData<String> getResultado() {
+        return resultado;
     }
-
-    public LiveData<Integer> getResultado() {
-        return resultadoLiveData;
-    }
-
-    public void setResultado(int numero1, int numero2) {
-        sumaInteractor.sumar(numero1, numero2, new SumaInteractor.SumaListener() {
-            @Override
-            public void onSumaCompleted(int resultado) {
-                resultadoLiveData.setValue(resultado);
-            }
-        });
+    public void Sumar(int num1, int num2){
+        int rs = SumaInteractor.sumar(num1,num2);
+        resultado.setValue(String.valueOf(rs));
     }
 }

@@ -14,42 +14,30 @@ import com.example.practica_12_mvvm.SumaViewModel.SumaViewModel;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    private EditText txtNumero1;
-    private EditText txtNumero2;
-    private TextView txtResultado;
-    private Button btnSumar;
-    private SumaViewModel sumaViewModel;
-
-
+    private EditText num1;
+    private EditText num2;
+    private TextView resultado;
+    private Button suma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        txtNumero1 = findViewById(R.id.txtNumero1);
-        txtNumero2 = findViewById(R.id.txtNumero2);
-        txtResultado = findViewById(R.id.txtResultado);
-        btnSumar = findViewById(R.id.btnSumar);
+        num1 = findViewById(R.id.txtNumero1);
+        num2 = findViewById(R.id.txtNumero2);
+        resultado = findViewById(R.id.txtResultado);
+        suma = findViewById(R.id.btnSumar);
 
-        // Agrega esta línea para inicializar el SumaViewModel
-        sumaViewModel = new ViewModelProvider(this).get(SumaViewModel.class);
+        SumaViewModel Miviewmodel = new ViewModelProvider(this).get(SumaViewModel.class);
 
-        sumaViewModel.getResultado().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer resultado) {
-                txtResultado.setText("Resultado: " + resultado);
-            }
+        suma.setOnClickListener(view -> {
+            int n1 = Integer.parseInt(num1.getText().toString());
+            int n2 = Integer.parseInt(num2.getText().toString());
+            ((SumaViewModel) Miviewmodel).Sumar(n1, n2);
         });
 
-        btnSumar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int numero1 = Integer.parseInt(txtNumero1.getText().toString());
-                int numero2 = Integer.parseInt(txtNumero2.getText().toString());
-                sumaViewModel.setResultado(numero1, numero2);
-            }
-        });
+        ((SumaViewModel) Miviewmodel).getResultado().observe(this, s -> resultado.setText(s));
     }
 
 
